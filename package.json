@@ -1,0 +1,18 @@
+{
+  "name": "ats-resume-checker",
+  "version": "1.0.0",
+  "private": true,
+  
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.17.2",
+    "next": "15.1.2",
+    "pdf-parse": "^1.1.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}
