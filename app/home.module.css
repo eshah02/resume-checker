@@ -1,0 +1,176 @@
+
+.wrapper {
+  padding: 0;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--color-shadow);
+  margin-bottom: 40px;
+}
+
+.inputGroup {
+  width: 100%;
+  max-width: 450px;
+}
+
+.fileLabel {
+  background-color: #4cb392;
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  border: 2px dashed var(--color-border);
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 500;
+  color: #f0f7ff;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.fileLabel:hover {
+  border-color: var(--color-secondary);
+  background-color: #f5f8ff;
+  color: var(--color-primary);
+}
+
+.primaryBtn {
+  background: var(--color-primary);
+  color: #000;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: 0 4px 6px rgba(30, 64, 175, 0.2);
+}
+.primaryBtn:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  box-shadow: 0 6px 10px rgba(30, 64, 175, 0.3);
+}
+.primaryBtn:disabled {
+  background: #cbd5e1;
+  color: #64748b;
+}
+
+.errorBox {
+  padding: 15px;
+  background-color: #fee2e2;
+  color: var(--color-score-low);
+  border: 1px solid var(--color-score-low);
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.resultsContainer {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+.scoreBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  background-color: #f0f7ff; 
+  border-left: 5px solid var(--color-primary);
+}
+
+.scoreLabel {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.scoreNumber {
+  font-size: 3.5rem; 
+  font-weight: 800;
+}
+
+.scoreOutOf {
+  font-size: 1.5rem;
+  color: var(--color-text-secondary);
+}
+
+.summary h2 {
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: var(--color-primary-dark);
+}
+
+.tabContent {
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: #fcfcfc;
+}
+.tabContent ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+.tabContent li {
+  color: var(--color-text-primary);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.tabContent li.strength {
+  color: var(--color-score-high);
+}
+.tabContent li.weakness {
+  color: var(--color-score-low);
+}
+.tabContent li.suggestion {
+  color: var(--color-text-primary);
+}
+
+.tabContent li.noContent {
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.container {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.ctaBtn {
+  margin-top: 20px;
+  background: var(--color-secondary);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.ctaBtn:hover {
+  background: var(--color-primary);
+}

@@ -1,35 +1,30 @@
 .tabContent {
   border: 1px solid #e6e6e6;
-  padding: 16px;
+  padding: 18px;
   border-radius: 8px;
   background: #fff;
   margin-top: 8px;
 }
-
-.fileLabel input[type="file"] {
-  display: block;
-  margin-top: 8px;
+.fileLabel {
+  font-weight: 500;
 }
-
 .primaryBtn {
   background: #0070f3;
-  color: white;
-  padding: 8px 12px;
+  color: #fff;
+  padding: 10px 16px;
   border-radius: 6px;
   cursor: pointer;
 }
-
 .scoreBox {
   display: inline-flex;
   align-items: baseline;
   gap: 8px;
-  padding: 18px;
-  border-radius: 8px;
+  padding: 20px;
+  border-radius: 10px;
   border: 1px solid #eee;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
-
 .scoreNumber {
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 700;
+  color: #0070f3;
 }
