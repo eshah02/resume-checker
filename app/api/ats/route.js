@@ -33,7 +33,7 @@ export async function POST(request) {
     }
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({
-      model: "models/gemini-2.0-flash-lite-001",
+      model: "models/gemini-2.5-flash",
     });
 
     const prompt = `
