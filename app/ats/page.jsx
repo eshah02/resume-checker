@@ -5,7 +5,7 @@ export default function Home() {
     <main className={styles.container}>
       <h1>ATS Resume Checker</h1>
       <p>
-        Upload a resume PDF and get an ATS score and suggestions powered by Gemini.
+        get an ATS score and suggestions powered by Gemini.
       </p>
 
       <Link href="/ats">
