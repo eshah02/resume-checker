@@ -123,43 +123,10 @@
   margin-bottom: 20px;
   color: var(--color-primary-dark);
 }
-
-.tabContent {
-  padding: 20px;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  background: #fcfcfc;
-}
-.tabContent ul {
-  list-style: disc;
-  padding-left: 20px;
-}
-.tabContent li {
-  color: var(--color-text-primary);
-  margin-bottom: 12px;
-  line-height: 1.5;
-}
-
-.tabContent li.strength {
-  color: var(--color-score-high);
-}
-.tabContent li.weakness {
-  color: var(--color-score-low);
-}
-.tabContent li.suggestion {
-  color: var(--color-text-primary);
-}
-
-.tabContent li.noContent {
-  color: var(--color-text-secondary);
-  font-style: italic;
-}
-
 .container {
   text-align: center;
   padding: 60px 20px;
 }
-
 .ctaBtn {
   margin-top: 20px;
   background: var(--color-secondary);
@@ -173,4 +140,100 @@
 }
 .ctaBtn:hover {
   background: var(--color-primary);
+}
+.suggestionCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+.suggestionCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.statusBadge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 99px;
+  color: #fff;
+}
+.statusBadge[data-status="red"] { background-color: #ef4444; }
+.statusBadge[data-status="yellow"] { background-color: #f59e0b; }
+.statusBadge[data-status="green"] { background-color: #10b981; }
+
+.sectionLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  background: #e2e8f0;
+  padding: 2px 10px;
+  border-radius: 4px;
+}
+.contentBody {
+  padding: 20px;
+}
+.issueHeading {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.optimizationZone {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 18px;
+  margin-top: 10px;
+}
+.comparisonGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.comparisonItem label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #166534;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.textStrike {
+  color: #991b1b;
+  font-size: 0.95rem;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.textSuccess {
+  position: relative;
+  background: #ffffff;
+  padding: 14px 45px 14px 14px; 
+  border-radius: 6px;
+  color: #14532d;
+  font-weight: 600;
+  border-left: 4px solid #22c55e;
+}
+.proTip {
+  margin-top: 15px;
+  font-size: 0.85rem;
+  color: #475569;
+  border-top: 1px solid #d1fae5;
+  padding-top: 10px;
 }
