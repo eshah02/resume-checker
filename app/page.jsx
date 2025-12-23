@@ -9,7 +9,6 @@ const TAB_CONFIG = [
   { id: "weaknesses", label: "Weaknesses" },
   { id: "suggestions", label: "Suggestions" },
 ];
-
 const renderHighlightedText = (fullText, highlights) => {
   if (!fullText) return "";
   if (!highlights || highlights.length === 0) return fullText;
@@ -88,11 +87,7 @@ export default function AtsCheckerPage() {
       });
 
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to analyze resume.");
-      }
-
+      if (!response.ok) throw new Error(data.error || "Failed to analyze resume.");
       setAnalysis(data.ats);
     } catch (err) {
       console.error("Analysis Error:", err);
@@ -101,22 +96,33 @@ export default function AtsCheckerPage() {
       setLoading(false);
     }
   };
-
-  const filteredPoints = useMemo(() => {
+  const experienceOptimizations = useMemo(() => {
     if (!analysis || !analysis.detailed_points) return [];
+    return analysis.detailed_points.filter((p) => {
+      const isExperience = p.section?.toLowerCase().includes("experience");
+      const needsFix = p.category === "weakness" || p.category === "suggestion" || p.status === "red" || p.status === "yellow";
+      return isExperience && needsFix;
+    });
+  }, [analysis]);
+ const filteredPoints = useMemo(() => {
+  if (!analysis || !analysis.detailed_points) return [];
 
-    const tabToCategory = {
-      strengths: ["strength", "strengths"],
-      weaknesses: ["weakness", "weaknesses", "critical"],
-      suggestions: ["suggestion", "suggestions", "improve", "improvement", "improvements"],
-    };
+  const tabToCategory = {
+    strengths: ["strength", "strengths"],
+    weaknesses: ["weakness", "weaknesses", "critical"],
+    suggestions: ["suggestion", "suggestions", "improve", "improvement"],
+  };
 
-    const allowedCategories = tabToCategory[activeTab];
+  const allowed = tabToCategory[activeTab];
 
-    return analysis.detailed_points.filter((point) =>
-      allowedCategories.includes(point.category?.toLowerCase())
-    );
-  }, [analysis, activeTab]);
+  return analysis.detailed_points.filter((point) => {
+    const isAllowedCategory = allowed.includes(point.category?.toLowerCase());
+    const isExperienceOptimization = 
+      point.section?.toLowerCase().includes("experience") && 
+      (point.category === "weakness" || point.category === "suggestion" || point.status === "red" || point.status === "yellow");
+    return isAllowedCategory && !isExperienceOptimization;
+  });
+}, [analysis, activeTab]);
 
   const scoreClass = analysis ? getScoreColorClass(analysis.ats_score) : "";
 
@@ -140,19 +146,12 @@ export default function AtsCheckerPage() {
             style={{ display: "none" }}
           />
         </div>
-
-        <button
-          type="submit"
-          className={styles.primaryBtn}
-          disabled={!file || loading}
-        >
+        <button type="submit" className={styles.primaryBtn} disabled={!file || loading}>
           {loading ? "Analyzing Resume..." : "Get ATS Score & Feedback"}
         </button>
       </form>
-
       {error && <div className={styles.errorBox}>Error: {error}</div>}
       {loading && <Loader />}
-
       {analysis && (
         <div className={styles.resultsContainer}>
           <div className={styles.scoreBox}>
@@ -173,96 +172,76 @@ export default function AtsCheckerPage() {
             <span className={styles.scoreOutOf}>/ 100</span>
           </div>
 
-          <div className={styles.summary}>
-            <h2>AI Summary</h2>
-            <p>{analysis.summary}</p>
-          </div>
-
-          {analysis.summary_upgrade && analysis.summary_upgrade.found && (
+          {analysis.summary_upgrade?.found && (
             <div className={styles.summaryAnalysisWrapper}>
-              <h2 className={styles.sectionTitle}>Summary Analysis</h2>
-              <div className={styles.originalBox}>
-                <h4 className={styles.boxLabel}>Original Summary (Weaknesses in Red)</h4>
-                <div className={styles.summaryText}>
-                  {renderHighlightedText(
-                    analysis.summary_upgrade.original_summary,
-                    analysis.summary_upgrade.weak_highlights
-                  )}
+              <h2 className={styles.sectionTitle}>Summary Optimization</h2>
+              <div className={styles.summaryGrid}>
+                <div className={styles.originalBox}>
+                  <h4 className={styles.boxLabel}>Original Summary (Weaknesses in Red)</h4>
+                  <div className={styles.summaryText}>
+                    {renderHighlightedText(
+                      analysis.summary_upgrade.original_summary,
+                      analysis.summary_upgrade.weak_highlights
+                    )}
+                  </div>
                 </div>
-              </div>
-
-              <div className={styles.optimizedBox}>
-                <h4 className={styles.boxLabel}>Optimized Summary</h4>
-                <p className={styles.summaryText}>
-                  {analysis.summary_upgrade.best_summary}
-                </p>
-                <button
-                  className={styles.copyBtn}
-                  onClick={() => {
-                    navigator.clipboard.writeText(analysis.summary_upgrade.best_summary);
-                    alert("Copied to clipboard!");
-                  }}
-                >
-                  Copy Summary
-                </button>
+                <div className={styles.optimizedBox}>
+                  <h4 className={styles.boxLabel}>Optimized Summary</h4>
+                  <p className={styles.summaryText}>{analysis.summary_upgrade.best_summary}</p>
+                </div>
               </div>
             </div>
           )}
-
+          {experienceOptimizations.length > 0 && (
+            <div className={styles.summaryAnalysisWrapper} style={{ borderTop: "2px solid #e2e8f0", paddingTop: "2rem" }}>
+              <h2 className={styles.sectionTitle}>Work Experience Optimization</h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+                {experienceOptimizations.map((item, idx) => (
+                  <div key={idx} className={styles.optimizationZone} style={{ background: "#fff", borderLeft: "4px solid #ef4444" }}>
+                    <div className={styles.comparisonGrid}>
+                      <div className={styles.comparisonItem}>
+                        <label>Original Phrase (Weaknesses in Red)</label>
+                        <div className={styles.textStrike}>
+                          {renderHighlightedText(item.original_phrase || item.issue, item.weak_highlights || [])}
+                        </div>
+                      </div>
+                      <div className={styles.comparisonItem}>
+                        <label>Recommended STAR Update</label>
+                        <div className={styles.textSuccess}>{item.correction}</div>
+                      </div>
+                    </div>
+                    {item.explanation && (
+                      <p className={styles.proTip}>
+                        <strong>Why this works:</strong> {item.explanation}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          <hr style={{ margin: "3rem 0", border: "0", borderTop: "1px solid #eee" }} />
           <Tabs tabs={TAB_CONFIG} active={activeTab} onChange={setActiveTab} />
-
           <div className={styles.tabContent}>
             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               {filteredPoints.map((item, index) => (
                 <div key={index} className={styles.suggestionCard}>
                   <div className={styles.cardHeader}>
-                    <span className={styles.statusBadge} data-status={item.status}>
-                      {item.status === "red" ? "Critical" : item.status === "yellow" ? "Improve" : "Strong"}
-                    </span>
+                    <span className={styles.statusBadge} data-status={item.status}>{item.status}</span>
                     <span className={styles.sectionLabel}>{item.section || "General"}</span>
                   </div>
-
                   <div className={styles.contentBody}>
                     <h4 className={styles.issueHeading}>
                       {item.status === "red" ? "🚫" : item.status === "green" ? "✅" : "💡"} {item.issue}
                     </h4>
-                    {item.correction && 
-                     item.correction !== "N/A" && 
-                     !item.correction.includes("N/A") && 
-                     item.category !== "strength" && (
-                      <div className={styles.optimizationZone}>
-                        <div className={styles.comparisonGrid}>
-                          <div className={styles.comparisonItem}>
-                            <label>Original Phrase</label>
-                            <div className={styles.textStrike}>{item.issue}</div>
-                          </div>
-                          <div className={styles.comparisonItem}>
-                            <label>Optimized (STAR Method)</label>
-                            <div className={styles.textSuccess}>{item.correction}</div>
-                          </div>
-                        </div>
-                        {item.explanation && (
-                          <p className={styles.proTip}>
-                            <strong>Why this works:</strong> {item.explanation}
-                          </p>
-                        )}
-                      </div>
-                    )}
-                    {(item.category === "strength" || 
-                      item.correction === "N/A" || 
-                      item.correction?.includes("N/A") || 
-                      !item.correction) && (
-                      <div className={styles.optimizationZone} style={{ borderLeftColor: "#16cd6bff", background: "#f0fff4" }}>
-                        <p className={styles.proTip} style={{ marginTop: 0 }}>
-                          <strong>Feedback:</strong> {item.explanation}
-                        </p>
-                      </div>
-                    )}
+                    <p className={styles.proTip}>{item.explanation}</p>
                   </div>
                 </div>
               ))}
               {filteredPoints.length === 0 && (
-                <p className={styles.noContent}>Excellent! No major issues found.</p>
+                <p style={{ textAlign: 'center', color: '#64748b', padding: '20px' }}>
+                  No additional items in this category.
+                </p>
               )}
             </div>
           </div>
