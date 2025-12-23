@@ -30,39 +30,29 @@ export async function POST(request) {
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash",
     });
-
-  const prompt = `
+const prompt = `
 You are a Senior Technical Recruiter and ATS Auditor. 
-Analyze the resume text provided below. 
+Analyze the resume text provided below and return ONLY valid JSON.
+For "detailed_points", use ONLY these categories: "strength", "weakness", or "suggestion".
 
-Return ONLY valid JSON in this exact format:
+Required JSON Structure:
 {
-  "ats_score": 0,
-  "summary": "...",
+  "ats_score": 85,
+  "summary": "Overall feedback about the resume...",
+  "summary_upgrade": {
+    "found": true,
+    "original_summary": "Extract the EXACT summary text found in the resume",
+    "weak_highlights": ["exact phrase from summary", "another weak word"],
+    "best_summary": "Provide a completely new, high-impact version here"
+  },
   "detailed_points": [
     {
       "section": "Experience",
       "category": "weakness", 
       "status": "red",
-      "issue": "Specific issue found",
-      "correction": "The improved STAR-method version",
-      "explanation": "Why this change matters"
-    },
-    {
-      "section": "Skills",
-      "category": "strength",
-      "status": "green",
-      "issue": "High-impact skill mentioned",
-      "correction": null,
-      "explanation": "This is a strong point because..."
-    },
-    {
-      "section": "Professional Summary",
-      "category": "suggestion",
-      "status": "yellow",
-      "issue": "Generic summary statement",
-      "correction": "Results-oriented professional with...",
-      "explanation": "A stronger summary hooks the recruiter."
+      "issue": "Vague job descriptions",
+      "correction": "Increased sales by 20%...",
+      "explanation": "Metric-driven data helps ATS."
     }
   ]
 }
