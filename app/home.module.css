@@ -25,7 +25,6 @@
   padding: 30px;
   background-color: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 12px var(--color-shadow);
   margin-bottom: 40px;
 }
 
@@ -61,7 +60,6 @@
   border-radius: 8px;
   font-size: 1.1rem;
   font-weight: 700;
-  box-shadow: 0 4px 6px rgba(30, 64, 175, 0.2);
 }
 .primaryBtn:hover:not(:disabled) {
   background: var(--color-primary-dark);
@@ -236,4 +234,91 @@
   color: #475569;
   border-top: 1px solid #d1fae5;
   padding-top: 10px;
+}
+.summaryUpgradeCard {
+  background: #ffffff;
+  border: 2px solid #e0e7ff;
+  border-radius: 16px;
+  padding: 25px;
+  margin: 20px 0;
+}
+
+.upgradeTitle {
+  color: #4338ca;
+  margin-bottom: 20px;
+  font-size: 1.25rem;
+}
+.upgradeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 30px;
+}
+.columnLabel {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.weakList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.weakList li {
+  background: #fff1f2;
+  color: #be123c;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+.summaryAnalysisWrapper {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.originalBox {
+  background: #fff5f5; 
+  border: 1px solid #feb2b2;
+  padding: 20px;
+  border-radius: 12px;
+  position: relative;
+}
+
+.optimizedBox {
+  background: #f0fff4; 
+  border: 1px solid #9ae6b4;
+  padding: 20px;
+  border-radius: 12px;
+}
+.boxLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: #718096;
+}
+.summaryText {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #2d3748;
+}
+.copyBtn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background: #38a169;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.copyBtn:hover {
+  background: #2f855a;
 }
