@@ -322,3 +322,28 @@
 .copyBtn:hover {
   background: #2f855a;
 }
+.textStrike {
+  color: #64748b; 
+  font-size: 0.95rem;
+  text-decoration: line-through;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+.textStrike span {
+  text-decoration: line-through; 
+  background-color: #fff5f5;   
+  padding: 0 2px;
+}
+.summaryGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 1.25rem;
+}
