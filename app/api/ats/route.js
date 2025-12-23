@@ -54,6 +54,16 @@ Required JSON Structure:
       "correction": "Increased sales by 20%...",
       "explanation": "Metric-driven data helps ATS."
     }
+      {
+  "section": "Work Experience",
+  "category": "weakness",
+  "status": "red",
+  "issue": "Vague bullet point",
+  "original_phrase": "Responsible for managing a team and doing sales.",
+  "weak_highlights": ["Responsible for", "doing sales"],
+  "correction": "Led a cross-functional team of 10 to increase regional sales by 25% ($500k) in Q3.",
+  "explanation": "Using action verbs and quantifiable metrics (STAR method) is more impactful than listing responsibilities."
+}
   ]
 }
 
